@@ -13,13 +13,14 @@ mongoose.connection.once('open', () => {
     console.log('mongodb connected');
 })
 
+
 app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.post('/signup', async (req, res) => {
     const { name, email, password } = req.body;
-    
+
 
     try {
         const existingUser = await User.findOne({ email: email });
@@ -38,18 +39,18 @@ app.post('/signup', async (req, res) => {
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-  
+
     try {
       const user = await User.findOne({ email: email });
       if (!user) {
         return res.status(400).json({ message: 'Invalid email or password' });
       }
-  
+
       if (user.password !== password) {
         return res.status(400).json({ message: 'Invalid email or password' });
       }
-  
-  
+
+
       res.status(200).json({ message: 'Login successful' });
     } catch (error) {
       res.status(500).json({ message: 'Error logging in'});
@@ -57,7 +58,7 @@ app.post('/login', async (req, res) => {
   });
 
   app.put('/home',async(req,res)=>{
-    const { email } = req.body;  
+    const { email } = req.body;
 
     try {
         const user = await User.findOne({ email });
@@ -71,9 +72,9 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ message: 'Error fetching notes', error: error.message });
     }
   })
-  
+
   app.get('/home',async(req,res)=>{
-    const { email } = req.body;  
+    const { email } = req.body;
 
     try {
         const user = await User.findOne({ email });

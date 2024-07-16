@@ -14,28 +14,7 @@ const Home = () => {
     fetchNotes(); // Fetch notes when component mounts
   }, [email]); // Fetch notes whenever email changes
 
-  const fetchNotes = () => {
-    if (email) {
-      fetch('http://localhost:4000/home', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: email }),
-      })
-        .then((res) => res.json())
-        .then((notes) => {
-          if (Array.isArray(notes.notes)) {
-            setNotesArray(notes.notes);
-          } else {
-            console.error('Notes fetched is not an array:', notes);
-          }
-        })
-        .catch((error) => {
-          console.error('Error fetching notes:', error);
-        });
-    }
-  };
+ 
 
   const handleAddClick = () => {
     const note = window.prompt('Enter note : ');
